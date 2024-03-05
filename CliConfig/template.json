@@ -1,0 +1,293 @@
+{
+    "model": {
+        "projectName": "test1",
+        "tableList": [
+            {
+                "tableName": "dict",
+                "sort": true,
+                "columns": [
+                    {
+                        "columnName": "type_code",
+                        "type": "string",
+                        "length": 64,
+                        "unique": true,
+                        "comment": "字典类型编码"
+                    },
+                    {
+                        "columnName": "name",
+                        "type": "string",
+                        "length": 50,
+                        "comment": "字典名称"
+                    },
+                    {
+                        "columnName": "value",
+                        "type": "string",
+                        "length": 50,
+                        "comment": "字典值"
+                    },
+                    {
+                        "columnName": "status",
+                        "type": "tinyint",
+                        "comment": "状态(1:启用;0:禁用)"
+                    },
+                    {
+                        "columnName": "defaulted",
+                        "type": "tinyint",
+                        "comment": "是否默认(1:是;0:否)"
+                    },
+                    {
+                        "columnName": "remark",
+                        "type": "string",
+                        "comment": "备注"
+                    }
+                ]
+            },
+            {
+                "tableName": "dict_type",
+                "columns": [
+                    {
+                        "columnName": "name",
+                        "type": "string",
+                        "length": 50,
+                        "comment": "类型名称"
+                    },
+                    {
+                        "columnName": "code",
+                        "type": "string",
+                        "length": 50,
+                        "comment": "类型编码"
+                    },
+                    {
+                        "columnName": "status",
+                        "type": "tinyint",
+                        "comment": "状态(0:正常;1:禁用)"
+                    },
+                    {
+                        "columnName": "remark",
+                        "type": "string",
+                        "comment": "备注"
+                    }
+                ]
+            },
+            {
+               "tableName": "dept",
+                "sort": true,
+                "columns": [
+                    {
+                        "columnName": "name",
+                        "type": "string",
+                        "required": true,
+                        "length": 64,
+                        "comment": "部门名称"
+                    },
+                    {
+                        "columnName": "parent_id",
+                        "type": "bigint",
+                        "required": true,
+                        "comment": "父节点id"
+                    },
+                    {
+                        "columnName": "tree_path",
+                        "type": "string",
+                        "comment": "父节点id路径"
+                    },
+                    {
+                        "columnName": "status",
+                        "type": "tinyint",
+                        "required": true,
+                        "comment": "状态(0:正常;1:禁用)"
+                    },
+                    {
+                        "columnName": "deleted",
+                        "type": "tinyint",
+                        "comment": "逻辑删除标识(1:已删除;0:未删除)"
+                    }
+                ]
+            },
+            {
+                "tableName": "menu",
+                "sort": true,
+                "columns": [
+                     {
+                        "columnName": "parent_id",
+                        "type": "tinyint",
+                         "required": true,
+                        "comment": "父菜单ID"
+                    },
+                    {
+                        "columnName": "tree_path",
+                        "type": "string",
+                        "comment": "父节点ID路径"
+                    },
+                    {
+                        "columnName": "name",
+                        "type": "string",
+                        "required": true,
+                        "length": 64,
+                        "comment": "菜单名称"
+                    },
+                    {
+                        "columnName": "type",
+                        "type": "tinyint",
+                        "required": true,
+                        "comment": "菜单类型(1:菜单 2:目录 3:外链 4:按钮)"
+                    },
+                    {
+                        "columnName": "path",
+                        "type": "string",
+                        "length": 128,
+                        "comment": "路由路径(浏览器地址栏路径)"
+                    },
+                     {
+                        "columnName": "component",
+                        "type": "string",
+                        "length": 128,
+                        "comment": "组件路径(vue页面完整路径，省略.vue后缀)"
+                    },
+                     {
+                        "columnName": "perm",
+                        "type": "string",
+                        "length": 128,
+                        "comment": "权限标识"
+                    },
+                    {
+                        "columnName": "visible",
+                        "type": "tinyint",
+                        "required": true,
+                        "comment": "显示状态(1-显示;0-隐藏)"
+                    },
+                    {
+                        "columnName": "icon",
+                        "type": "string",
+                        "length": 64,
+                        "comment": "菜单图标"
+                    },
+                    {
+                        "columnName": "redirect",
+                        "type": "string",
+                        "length": 128,
+                        "comment": "跳转路径"
+                    },
+                    {
+                        "columnName": "always_show",
+                        "type": "tinyint",
+                        "comment": "【目录】只有一个子路由是否始终显示(1:是 0:否)"
+                    },
+                    {
+                        "columnName": "keep_alive",
+                        "type": "tinyint",
+                        "comment": "【菜单】是否开启页面缓存(1:是 0:否)"
+                    }
+                ]
+            },
+            {
+                "tableName": "role",
+                "sort": true,
+                "foreignTable": "menu",
+                "columns": [
+                    {
+                        "columnName": "name",
+                        "type": "string",
+                        "length": 64,
+                        "unique": true,
+                        "required": true,
+                        "comment": "角色名称"
+                    },
+                    {
+                        "columnName": "code",
+                        "type": "string",
+                        "length": 32,
+                        "comment": "角色编码"
+                    },
+                    {
+                        "columnName": "status",
+                        "type": "tinyint",
+                        "comment": "角色状态(1-正常；0-停用)"
+                    },
+                    {
+                        "columnName": "data_scope",
+                        "type": "tinyint",
+                        "comment": "数据权限(0-所有数据；1-部门及子部门数据；2-本部门数据；3-本人数据)"
+                    },
+                    {
+                        "columnName": "deleted",
+                        "type": "tinyint",
+                        "comment": "逻辑删除标识(0-未删除；1-已删除)"
+                    }
+                ]
+            },
+            {
+                "tableName": "user",
+                "foreignTable": "role",
+                "columns": [
+                    {
+                        "columnName": "username",
+                        "type": "string",
+                        "unique": true,
+                        "length": 64,
+                        "comment": "用户名"
+                    },
+                    {
+                        "columnName": "password",
+                        "type": "password",
+                        "comment": "用户密码"
+                    },
+                    {
+                        "columnName": "nickname",
+                        "type": "string",
+                        "length": 64,
+                        "comment": "用户昵称"
+                    },
+                    {
+                        "columnName": "gender",
+                        "type": "tinyint",
+                        "comment": "性别((1:男;2:女))"
+                    },
+                    {
+                        "columnName": "mobile",
+                        "type": "string",
+                        "length": 20,
+                        "comment": "联系方式"
+                    },
+                    {
+                        "columnName": "email",
+                        "type": "string",
+                        "comment": "邮箱"
+                    },
+                    {
+                        "columnName": "deptName",
+                        "type": "string",
+                        "length": 128,
+                        "comment": "所属部门"
+                    },
+                    {
+                        "columnName": "role_ids",
+                        "type": "string",
+                        "length": 128,
+                        "comment": "所属部门"
+                    },
+                    {
+                        "columnName": "avatar",
+                        "type": "string",
+                        "comment": "用户头像"
+                    },
+                    {
+                        "columnName": "status",
+                        "type": "tinyint",
+                        "comment": "用户状态((1:正常;0:禁用))"
+                    },
+                    {
+                        "columnName": "dept_id",
+                        "type": "bigint",
+                        "comment": "部门ID"
+                    },
+                    {
+                        "columnName": "deleted",
+                        "type": "tinyint",
+                        "comment": "逻辑删除标识(0:未删除;1:已删除)"
+                    }
+                ]
+            }
+        ]
+    }
+}
